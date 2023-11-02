@@ -17,7 +17,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    // localhost:8080/findbyid/1
+    // http:localhost:8080/findbyid/1
     @Cacheable(cacheNames = "employee", key = "#userId")
     @GetMapping(path = "/findbyid/{userId}")
     public Employee findById(@PathVariable Long userId) {
@@ -25,7 +25,7 @@ public class EmployeeController {
         return employeeService.findById(userId);
     }
 
-    // localhost:8080/deletebyid/1
+    // http:localhost:8080/deletebyid/1
     @CacheEvict(value = "employee", allEntries = true)
     @GetMapping(path = "/deletebyid/{userId}")
     public void deleteUserByID(@PathVariable Long userId) {
