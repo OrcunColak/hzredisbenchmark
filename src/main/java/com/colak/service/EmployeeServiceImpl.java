@@ -1,16 +1,20 @@
 package com.colak.service;
 
 import com.colak.model.Employee;
+import com.colak.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final Employee employee = new Employee(1L, "orcun", "colak");
+    private final EmployeeRepository employeeRepository;
 
     @Override
     public Employee findById(Long id) {
-        return employee;
+        // may throw java.util.NoSuchElementException
+        return employeeRepository.findById(id).orElseThrow();
     }
 
 }
