@@ -5,7 +5,7 @@ services:
     ports:
       - "6379:6379"
   redis-commander:
-    # localhost:8081
+    # http://localhost:8081
     image: rediscommander/redis-commander:latest
     environment:
       - REDIS_HOSTS=local:redis:6379
