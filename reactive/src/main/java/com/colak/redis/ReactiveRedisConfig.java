@@ -40,7 +40,10 @@ public class ReactiveRedisConfig {
         StringRedisSerializer keySerializer = new StringRedisSerializer();
         builder.key(keySerializer).hashKey(keySerializer);
 
-        // Value serializer
+        // Value serializer can be
+        // JdkSerializationRedisSerializer,
+        // GenericJackson2JsonRedisSerializer,
+        // Jackson2JsonRedisSerializer<Employee>
         Jackson2JsonRedisSerializer<Employee> valueSerializer = new Jackson2JsonRedisSerializer<>(Employee.class);
         RedisSerializationContext<String, Employee> context = builder.value(valueSerializer)
                 .hashValue(valueSerializer)
