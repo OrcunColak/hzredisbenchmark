@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 public interface EmployeeService {
     Mono<Employee> findById(Long id);
 
-    Mono<Boolean> save(Employee employee);
+    Mono<Employee> save(Employee employee);
 }
