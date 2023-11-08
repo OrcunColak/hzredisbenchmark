@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  hazelcast:
+    environment:
+      - JAVA_OPTS=${JAVA_OPTS} -Dhazelcast.internal.tpc.enabled=true
+    image: 'hazelcast/hazelcast'
+    ports:
+      - '5701:5701'
+
+# to start containers
+# docker-compose  -f hazelcast-tpc-compose.yml up
+
+# to remove the volumes
+# docker-compose -f hazelcast-tpc-compose.yml down -v
+

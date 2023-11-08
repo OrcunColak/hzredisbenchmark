@@ -5,6 +5,13 @@ This little project aims to benchmark Redis and Hazelcast when they are used as 
 3. Run SpringBoot application
 4. Run the Apache Benchmark tool
 
+# Running the non-reactive application 
+Change the application.properties to set cache type as Redis or Hazelcast 
+```
+cd nonreactive
+mvn clean spring-boot:run
+```
+
 # Apache Benchmark Tool
 You need to download the Apache Benchmark Tool  
 For Windows see https://www.youtube.com/watch?v=hUZso9TpEes
@@ -13,12 +20,24 @@ Run the command below.
 - -c specifies number of threads
 
 ```
-ab -n 1000 -c 100 localhost:8080/findbyid/1
+ab -n 100000 -c 300 localhost:8080/findbyid/1
 ```
-After executing the ab command **10** times the result of **Total median** is
-- Redis : 23 ms  
-- Hazelcast 23 ms
+
+# Results for the non-reactive application
+| Cache | Total Median (ms) | Peak live threads on Spring Server |
+|-|--|------------------------------------|
+| Redis |71| 239                                |
+| Hazelcast|71| 252                                |
+| Hazelcast with TPC enabled|72| 252                                |
 
 So they are roughly equal
+
+# Results for the reactive application
+| Cache | Total Median (ms) | Peak live threads on Spring Server |
+|-|---|---|
+| Redis | 73| 71|
+
+
+
 
 
