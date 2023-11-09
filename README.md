@@ -11,6 +11,9 @@ Change the application.properties to set cache type as Redis or Hazelcast
 cd nonreactive
 mvn clean spring-boot:run
 ```
+# Docker Environment
+CPUs : 8  
+Total Memory: 2.847GiB
 
 # Apache Benchmark Tool
 You need to download the Apache Benchmark Tool  
@@ -25,17 +28,17 @@ ab -n 100000 -c 300 localhost:8080/findbyid/1
 
 # Results for the non-reactive application
 | Cache | Total Median (ms) | Peak live threads on Spring Server |
-|-|--|------------------------------------|
-| Redis |71| 239                                |
-| Hazelcast|71| 252                                |
-| Hazelcast with TPC enabled|72| 252                                |
+|-|--|---|
+| Redis |78|231|
+| Hazelcast|78|187|
+| Hazelcast with TPC enabled| 75|181|
 
 So they are roughly equal
 
 # Results for the reactive application
 | Cache | Total Median (ms) | Peak live threads on Spring Server |
-|-|---|---|
-| Redis | 73| 71|
+|-|-------------------|------------------------------------|
+| Redis | 77                | 72                                 |
 
 
 
