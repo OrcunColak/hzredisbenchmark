@@ -19,10 +19,14 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class EmployeeController {
 
+    public static final String CACHE_NAME = "employee";
+
+
+
     private final EmployeeService employeeService;
 
     // http:localhost:8080/findbyid/1
-    @Cacheable(cacheNames = "employee", key = "#userId")
+    @Cacheable(cacheNames = CACHE_NAME, key = "#userId")
     @GetMapping(path = "/findbyid/{userId}")
     public Employee findById(@PathVariable Long userId) {
         log.info("findById is called with : {}", userId);
@@ -30,7 +34,7 @@ public class EmployeeController {
     }
 
     // http:localhost:8080/deletebyid/1
-    @CacheEvict(value = "employee", allEntries = true)
+    @CacheEvict(value = CACHE_NAME, allEntries = true)
     @GetMapping(path = "/deletebyid/{userId}")
     public void deleteUserByID(@PathVariable Long userId) {
         log.info("deletebyid is called with : {}", userId);
