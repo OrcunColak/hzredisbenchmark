@@ -25,6 +25,7 @@ Run the command below.
 ```
 ab -n 100000 -c 300 localhost:8080/findbyid/1
 ```
+You can also visit http://localhost:8080/actuator/metrics/cache.gets to see cache statistics
 
 # Results for the non-reactive application
 | Cache | Total Median (ms) | Peak live threads on Spring Server |
