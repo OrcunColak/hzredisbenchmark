@@ -11,7 +11,6 @@ public class HazelcastConfig {
 
     @Bean
     public ClientConfig hazelCastConfig() {
-        ClientConfig clientConfig = new ClientConfig();
-        return clientConfig;
+        return new ClientConfig();
     }
 }
