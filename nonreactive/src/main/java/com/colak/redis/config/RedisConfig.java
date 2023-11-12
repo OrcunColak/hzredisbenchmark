@@ -19,6 +19,8 @@ public class RedisConfig {
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        // Instead of relying on org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration to create RedisCacheManager
+        // create it manually
         RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofMinutes(5))
                 .disableCachingNullValues()
