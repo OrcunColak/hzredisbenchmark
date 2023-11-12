@@ -20,26 +20,25 @@ You need to download the Apache Benchmark Tool
 For Windows see https://www.youtube.com/watch?v=hUZso9TpEes
 Run the command below.   
 - -n specifies number of requests
-- -c specifies number of threads
-
+- -c specifies number of threads. 
 ```
-ab -n 100000 -c 300 http://localhost:8080/findbyid/1
+ab -n 100000 -c 50 http://localhost:8080/findbyid/1
 ```
 You can also visit http://localhost:8080/actuator/metrics/cache.gets to see cache statistics
 
 # Results for the non-reactive application
 | Cache | Total Median (ms) | Peak live threads on Spring Server |
-|-|--|---|
-| Redis |78|231|
-| Hazelcast|78|187|
-| Hazelcast with TPC enabled| 75|181|
+|-|-------------------|------------------------------------|
+| Redis | 12                | 91                                 |
+| Hazelcast| 12                | 105                                |
+| Hazelcast with TPC enabled| 12                | 106                                |
 
 So they are roughly equal
 
 # Results for the reactive application
 | Cache | Total Median (ms) | Peak live threads on Spring Server |
 |-|-------------------|------------------------------------|
-| Redis | 77                | 72                                 |
+| Redis | 12                | 73                                 |
 
 
 
