@@ -1,4 +1,4 @@
 hazelcast:
   map:
     employee:
-      time-to-live-seconds: 3600
+      time-to-live-seconds: 300

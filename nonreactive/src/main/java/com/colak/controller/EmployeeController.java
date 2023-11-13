@@ -2,6 +2,7 @@ package com.colak.controller;
 
 import com.colak.model.Employee;
 import com.colak.service.EmployeeService;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,8 +21,6 @@ import java.util.NoSuchElementException;
 public class EmployeeController {
 
     public static final String CACHE_NAME = "employee";
-
-
 
     private final EmployeeService employeeService;
 
@@ -44,5 +43,14 @@ public class EmployeeController {
     public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException exception) {
         // Return 404
         return ResponseEntity.notFound().build();
+    }
+
+    // http://localhost:8080/findbyidnocache/1
+    // http://localhost:8080/actuator/metrics/findbyidnocache
+    @Timed("findbyidnocache")
+    @GetMapping(path = "/findbyidnocache/{userId}")
+    public Employee findByIdNoCache(@PathVariable Long userId) {
+        log.info("findById is called with : {}", userId);
+        return employeeService.findById(userId);
     }
 }
