@@ -1,12 +1,17 @@
 # Goal
 This little project aims to benchmark Redis and Hazelcast when they are used as Spring Cache stores.  
-1. Start the related cache server via the docker compose file
-2. Change the profile in application.properties file to related cache server type
-3. Run SpringBoot application
-4. Run the Apache Benchmark tool
+1. Start the related cache servers via the docker compose file
+2. Run theSpringBoot application
+3. Run the Apache Benchmark tool
+
+# Running cache servers
+```
+cd docker-compose
+docker-compose up
+```
+
 
 # Running the non-reactive application 
-Change the application.properties to set cache type as Redis or Hazelcast 
 ```
 cd nonreactive
 mvn clean spring-boot:run
@@ -22,7 +27,11 @@ Run the command below.
 - -n specifies number of requests
 - -c specifies number of threads. 
 ```
-ab -n 100000 -c 50 http://localhost:8080/findbyid/1
+ab -n 100000 -c 50 http://localhost:8080/redisfindbyid/1
+
+or
+
+ab -n 100000 -c 50 http://localhost:8080/hazelcastfindbyid/1
 ```
 You can also visit http://localhost:8080/actuator/metrics/cache.gets to see cache statistics
 

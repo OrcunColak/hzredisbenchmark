@@ -1,9 +1,8 @@
 package com.colak.redis.config;
 
-import com.colak.config.ProfileNames;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -14,13 +13,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
 @Configuration
-@Profile(ProfileNames.REDIS_PROFILE)
 public class RedisConfig {
 
+    public static final String CACHE_MANAGER = "redisCacheManager";
+
+    // org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration creates a
+    // org.springframework.data.redis.cache.RedisCacheManager
+    // But we want to create it manually
+    @Primary
     @Bean
-    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        // Instead of relying on org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration to create RedisCacheManager
-        // create it manually
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofMinutes(5))
                 .disableCachingNullValues()

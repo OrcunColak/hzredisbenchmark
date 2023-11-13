@@ -1,5 +1,21 @@
-version: '3.9'
+version: '3'
 services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  redis-commander:
+    # http://localhost:8081
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=qwerty
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
+
   hazelcast:
     hostname: hazelcast1
     container_name: hazelcast1
@@ -11,22 +27,15 @@ services:
     ports:
       - '5701:5701'
   management-center:
-    # http://localhost:8081
+    # http://localhost:8082
     image: hazelcast/management-center
     hostname: management-center
     container_name: management-center
     ports:
-      - "8081:8080"
+      - "8082:8080"
     environment:
       - MC_DEFAULT_CLUSTER=dev
       - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast1
       - MC_ALLOW_MULTIPLE_LOGIN=true
       - MC_ADMIN_USER=admin
       - MC_ADMIN_PASSWORD=hazelcast12
-
-# to start containers
-# docker-compose  -f hazelcast-compose.yml up
-
-# to remove the volumes
-# docker-compose -f hazelcast-compose.yml down -v
-
