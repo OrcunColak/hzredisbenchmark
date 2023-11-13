@@ -39,3 +39,13 @@ services:
       - MC_ALLOW_MULTIPLE_LOGIN=true
       - MC_ADMIN_USER=admin
       - MC_ADMIN_PASSWORD=hazelcast12
+
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
+    ports:
+      - 5432:5432

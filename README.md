@@ -27,11 +27,9 @@ Run the command below.
 - -n specifies number of requests
 - -c specifies number of threads. 
 ```
-ab -n 100000 -c 50 http://localhost:8080/redisfindbyid/1
-
-or
-
-ab -n 100000 -c 50 http://localhost:8080/hazelcastfindbyid/1
+Redis : ab -n 100000 -c 50 http://localhost:8080/redisfindbyid/1
+Hazelcast : ab -n 100000 -c 50 http://localhost:8080/hazelcastfindbyid/1
+No Cache : ab -n 100000 -c 50 http://localhost:8080/findbyidnocache/1
 ```
 You can also visit http://localhost:8080/actuator/metrics/cache.gets to see cache statistics
 
