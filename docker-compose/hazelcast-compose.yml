@@ -4,6 +4,10 @@ services:
     hostname: hazelcast1
     container_name: hazelcast1
     image: 'hazelcast/hazelcast'
+    environment:
+      - HAZELCAST_CONFIG=hz.yml
+    volumes:
+      - ./hazelcast.yml:/opt/hazelcast/hz.yml
     ports:
       - '5701:5701'
   management-center:
