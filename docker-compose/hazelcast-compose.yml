@@ -1,9 +1,24 @@
 version: '3.9'
 services:
   hazelcast:
+    hostname: hazelcast1
+    container_name: hazelcast1
     image: 'hazelcast/hazelcast'
     ports:
       - '5701:5701'
+  management-center:
+    # http://localhost:8081
+    image: hazelcast/management-center
+    hostname: management-center
+    container_name: management-center
+    ports:
+      - "8081:8080"
+    environment:
+      - MC_DEFAULT_CLUSTER=dev
+      - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast1
+      - MC_ALLOW_MULTIPLE_LOGIN=true
+      - MC_ADMIN_USER=admin
+      - MC_ADMIN_PASSWORD=hazelcast12
 
 # to start containers
 # docker-compose  -f hazelcast-compose.yml up

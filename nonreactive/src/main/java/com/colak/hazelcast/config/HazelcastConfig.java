@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Profile;
 @Profile(ProfileNames.HZ_PROFILE)
 public class HazelcastConfig {
 
+    // org.springframework.boot.autoconfigure.cache.HazelcastCacheConfiguration only creates a
+    // com.hazelcast.spring.cache.HazelcastCacheManager instance.
+    // It does not read any configuration from application.properties
     @Bean
     public ClientConfig hazelCastConfig() {
         return new ClientConfig();
