@@ -13,16 +13,16 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class EnableCacheMetrics {
+public class CacheMetricsConfig {
 
     private final RedisCacheManager redisCacheManager;
     private final HazelcastCacheManager hazelcastCacheManager;
 
     private final CacheMetricsRegistrar cacheMetricsRegistrar;
 
+    // https://stackoverflow.com/questions/59142947/unable-to-look-at-cache-metricshit-miss-size-in-spring-boot
     @EventListener(ApplicationStartedEvent.class)
     public void addCachesMetrics() {
-        // https://stackoverflow.com/questions/59142947/unable-to-look-at-cache-metricshit-miss-size-in-spring-boot
         Cache redisCache = redisCacheManager.getCache(RedisEmployeeController.CACHE_NAME);
         cacheMetricsRegistrar.bindCacheToRegistry(redisCache);
 

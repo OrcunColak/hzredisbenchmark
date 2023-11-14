@@ -1,7 +1,9 @@
 package com.colak.controller;
 
 import com.colak.model.Employee;
+import com.colak.model.QEmployee;
 import com.colak.service.EmployeeService;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +23,32 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    private final JPAQueryFactory jpaQueryFactory;
 
-    // http://localhost:8080/nocachefindbyid/1
-    // http://localhost:8080/actuator/metrics/nocachefindbyid
+
+    // http://localhost:8080/springNocacheFindById/1
+    // http://localhost:8080/actuator/metrics/springNocacheFindById
     @Timed("findbyidnocache")
     @Transactional(readOnly = true)
-    @GetMapping(path = "/nocachefindbyid/{userId}")
-    public Employee nocachefindbyid(@PathVariable Long userId) {
-        log.info("nocachefindbyid is called with : {}", userId);
+    @GetMapping(path = "/springnocachefindbyid/{userId}")
+    public Employee springNocacheFindById(@PathVariable Long userId) {
+        log.info("springNocacheFindById is called with : {}", userId);
         return employeeService.findById(userId);
+    }
+
+    // http://localhost:8080/queryDslNocacheFindById/1
+    @GetMapping(path = "/queryDslNocacheFindById/{userId}")
+    public Employee queryDslNocacheFindById(@PathVariable Long userId) {
+        log.info("queryDslNocacheFindById is called with : {}", userId);
+        QEmployee qEmployee = QEmployee.employee;
+        Employee employee = jpaQueryFactory
+                .selectFrom(qEmployee)
+                .where(qEmployee.id.eq(userId))
+                .fetchOne();
+        if (employee == null) {
+            throw new NoSuchElementException();
+        }
+        return employee;
     }
 
     @ExceptionHandler(NoSuchElementException.class)
