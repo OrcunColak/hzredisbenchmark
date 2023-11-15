@@ -1,7 +1,7 @@
 package com.colak.config;
 
-import com.colak.controller.HazelcastEmployeeController;
-import com.colak.controller.RedisEmployeeController;
+import com.colak.controller.jpa.HazelcastEmployeeController;
+import com.colak.controller.jpa.RedisEmployeeController;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
@@ -16,6 +16,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 public class CacheMetricsConfig {
 
     private final RedisCacheManager redisCacheManager;
+
     private final HazelcastCacheManager hazelcastCacheManager;
 
     private final CacheMetricsRegistrar cacheMetricsRegistrar;

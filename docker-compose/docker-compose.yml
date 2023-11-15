@@ -2,17 +2,19 @@ version: '3'
 services:
   redis:
     image: redis
+    container_name: redis1
     ports:
       - "6379:6379"
   redis-commander:
     # http://localhost:8081
     image: rediscommander/redis-commander:latest
+    container_name: rediscommander
     environment:
       - REDIS_HOSTS=local:redis:6379
       - HTTP_USER=root
       - HTTP_PASSWORD=qwerty
     ports:
-      - 8081:8081
+      - "8081:8081"
     depends_on:
       - redis
 
@@ -48,4 +50,35 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: db
     ports:
-      - 5432:5432
+      - "5432:5432"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: user_db
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  mongo-express:
+    # http://localhost:8083
+      image: mongo-express
+      restart: always
+      depends_on:
+        - mongo
+      ports:
+        - "8083:8081"
+      environment:
+        ME_CONFIG_MONGODB_SERVER: mongo
+        ME_CONFIG_MONGODB_PORT: 27017
+        ME_CONFIG_MONGODB_ADMINUSERNAME : root
+        ME_CONFIG_MONGODB_ADMINPASSWORD  : password
+  #      ME_CONFIG_MONGODB_URL: mongodb://root:password@mongdb:27017/
+
+        #  mongo-express web username and password for login
+        ME_CONFIG_BASICAUTH_USERNAME: root
+        ME_CONFIG_BASICAUTH_PASSWORD: password

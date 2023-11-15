@@ -1,6 +1,6 @@
-package com.colak.repository;
+package com.colak.repository.jpa;
 
-import com.colak.model.Employee;
+import com.colak.model.jpa.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

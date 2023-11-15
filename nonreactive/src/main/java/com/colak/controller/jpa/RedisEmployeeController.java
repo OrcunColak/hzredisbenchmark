@@ -1,8 +1,8 @@
-package com.colak.controller;
+package com.colak.controller.jpa;
 
-import com.colak.hazelcast.config.HazelcastConfig;
-import com.colak.model.Employee;
-import com.colak.service.EmployeeService;
+import com.colak.model.jpa.Employee;
+import com.colak.redis.config.RedisConfig;
+import com.colak.service.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,26 +19,26 @@ import java.util.NoSuchElementException;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class HazelcastEmployeeController {
+public class RedisEmployeeController {
 
     public static final String CACHE_NAME = "employee";
 
     private final EmployeeService employeeService;
 
-    // http://localhost:8080/hazelcastfindbyid/1
+    // http://localhost:8080/redisfindbyid/1
     @Transactional(readOnly = true)
-    @Cacheable(cacheNames = CACHE_NAME, cacheManager = HazelcastConfig.CACHE_MANAGER, key = "#userId")
-    @GetMapping(path = "/hazelcastfindbyid/{userId}")
-    public Employee hazelcastFindById(@PathVariable Long userId) {
-        log.info("hazelcastfindbyid is called with : {}", userId);
+    @Cacheable(cacheNames = CACHE_NAME, cacheManager = RedisConfig.CACHE_MANAGER, key = "#userId")
+    @GetMapping(path = "/redisfindbyid/{userId}")
+    public Employee redisFindById(@PathVariable Long userId) {
+        log.info("redisFindById is called with : {}", userId);
         return employeeService.findById(userId);
     }
 
-    // http://localhost:8080/deletebyid/1
+    // http://localhost:8080/redisdeletebyid/1
     @CacheEvict(value = CACHE_NAME, allEntries = true)
-    @GetMapping(path = "/hazelcastdeletebyid/{userId}")
-    public void hazelcastDeleteUserByID(@PathVariable Long userId) {
-        log.info("hazelcastDeleteUserByID is called with : {}", userId);
+    @GetMapping(path = "/redisdeletebyid/{userId}")
+    public void redisDeleteUserByID(@PathVariable Long userId) {
+        log.info("redisDeleteUserByID is called with : {}", userId);
     }
 
     @ExceptionHandler(NoSuchElementException.class)

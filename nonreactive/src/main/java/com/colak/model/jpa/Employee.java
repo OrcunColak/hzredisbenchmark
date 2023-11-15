@@ -1,4 +1,4 @@
-package com.colak.model;
+package com.colak.model.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

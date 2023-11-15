@@ -1,8 +1,8 @@
-package com.colak.controller;
+package com.colak.controller.jpa;
 
-import com.colak.model.Employee;
-import com.colak.model.QEmployee;
-import com.colak.service.EmployeeService;
+import com.colak.model.jpa.Employee;
+import com.colak.model.jpa.QEmployee;
+import com.colak.service.employee.EmployeeService;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;

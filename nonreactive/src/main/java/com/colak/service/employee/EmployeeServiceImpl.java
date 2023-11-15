@@ -1,7 +1,7 @@
-package com.colak.service;
+package com.colak.service.employee;
 
-import com.colak.model.Employee;
-import com.colak.repository.EmployeeRepository;
+import com.colak.model.jpa.Employee;
+import com.colak.repository.jpa.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
