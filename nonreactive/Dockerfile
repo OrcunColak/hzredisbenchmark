@@ -7,7 +7,7 @@ WORKDIR $HOME
 
 ADD pom.xml $HOME
 RUN mvn verify --fail-never
-ADD . $HOME
+ADD .. $HOME
 RUN mvn package
 
 # Stage 2: Copy the application artifacts to the final image

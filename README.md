@@ -1,10 +1,10 @@
 # Goal
 This little project aims to benchmark Redis and Hazelcast when they are used as Spring Cache stores.  
 1. Start the related cache servers via the docker compose file
-2. Run theSpringBoot application
+2. Run the SpringBoot application
 3. Run the Apache Benchmark tool
 
-# Running cache servers
+# Running docker servers
 ```
 cd docker-compose
 docker-compose up
