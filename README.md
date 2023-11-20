@@ -34,18 +34,18 @@ No Cache : ab -n 100000 -c 50 http://localhost:8080/findbyidnocache/1
 You can also visit http://localhost:8080/actuator/metrics/cache.gets to see cache statistics
 
 # Results for the non-reactive application
-| Cache | Total Median (ms) | Peak live threads on Spring Server |
-|-|-------------------|------------------------------------|
-| Redis | 12                | 91                                 |
-| Hazelcast| 12                | 105                                |
-| Hazelcast with TPC enabled| 12                | 106                                |
+| Cache                      | Total Median (ms) |
+|----------------------------|-------------------|
+| Redis                      | 12                |
+| Hazelcast                  | 12                |
+| Hazelcast with TPC enabled | 12                |
 
 So they are roughly equal
 
 # Results for the reactive application
-| Cache | Total Median (ms) | Peak live threads on Spring Server |
-|-|-------------------|------------------------------------|
-| Redis | 12                | 73                                 |
+| Cache | Total Median (ms) |
+|-------|-------------------|
+| Redis | 12                |
 
 
 
