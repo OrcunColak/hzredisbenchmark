@@ -20,20 +20,6 @@ public class RedisConfig {
 
     public static final String CACHE_MANAGER = "redisCacheManager";
 
-    @Value("${spring.redis.host}")
-    private String redisHost;
-
-    @Value("${spring.redis.port}")
-    private int redisPort;
-
-    @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(
-                redisHost, redisPort);
-
-        return new LettuceConnectionFactory(configuration);
-    }
-
     // org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration creates an
     // org.springframework.data.redis.cache.RedisCacheManager
     // But we want to create it manually
