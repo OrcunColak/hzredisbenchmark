@@ -55,6 +55,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <!--https://stackoverflow.com/questions/77376239/building-spring-boot-3-1-5-image-using-paketobuildpacks-via-maven-plugin-is-not-->
+                        <builder>paketobuildpacks/builder-jammy-base:latest</builder>
+                        <!--https://github.com/spring-projects/spring-boot/issues/33699-->
+                        <env>
+                            <BP_SPRING_CLOUD_BINDINGS_DISABLED>true</BP_SPRING_CLOUD_BINDINGS_DISABLED>
+                            <BPL_SPRING_CLOUD_BINDINGS_DISABLED>true</BPL_SPRING_CLOUD_BINDINGS_DISABLED>
+                        </env>
+                        <name>${project.artifactId}:${project.version}</name>
+                    </image>
+                    <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                    <imageName>${project.name}</imageName>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -100,10 +112,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-hazelcast</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-hazelcast</artifactId>-->
+<!--        </dependency>-->
 
         <!-- PostgreSQL DB-->
         <dependency>

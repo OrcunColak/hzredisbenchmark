@@ -11,14 +11,14 @@ public class HazelcastConfig {
 
     public static final String CACHE_MANAGER = "hazelcastCacheManager";
 
+    @Bean
+    public ClientConfig hazelCastConfig() {
+        return ClientConfig.load();
+    }
+
     // org.springframework.boot.autoconfigure.cache.HazelcastCacheConfiguration creates a
     // com.hazelcast.spring.cache.HazelcastCacheManager instance.
     // It does not read any configuration from application.properties
-    @Bean
-    public ClientConfig hazelCastConfig() {
-        return new ClientConfig();
-    }
-
     @Bean
     public HazelcastCacheManager hazelcastCacheManager(HazelcastInstance hazelcastInstance) {
         return new HazelcastCacheManager(hazelcastInstance);

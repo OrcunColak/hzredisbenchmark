@@ -1,10 +1,13 @@
-version: '3'
+version: "3.9"
 services:
   redis:
     image: redis
     container_name: redis1
+    restart: always
     ports:
       - "6379:6379"
+    command: >
+      --bind 0.0.0.0
   redis-commander:
     # http://localhost:8081
     image: rediscommander/redis-commander:latest
@@ -44,6 +47,7 @@ services:
 
   postgresql:
     image: postgres
+    container_name: postgresql1
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -54,6 +58,7 @@ services:
 
   mongo:
     image: mongo
+    container_name: mongo1
     restart: always
     ports:
       - "27017:27017"
@@ -67,7 +72,7 @@ services:
   mongo-express:
     # http://localhost:8083
       image: mongo-express
-      restart: always
+      container_name: mongo-express1
       depends_on:
         - mongo
       ports:
@@ -82,3 +87,16 @@ services:
         #  mongo-express web username and password for login
         ME_CONFIG_BASICAUTH_USERNAME: root
         ME_CONFIG_BASICAUTH_PASSWORD: password
+  nonreactive:
+    #  http://localhost:8080
+    image: nonreactive:1.0.0
+    container_name: nonreactive1
+    ports:
+      - "8080:8080"
+    environment:
+      HZCLIENT_NETWORK_CLUSTER-MEMBERS_ADDRESS: "hazelcast1"
+    depends_on:
+      - mongo
+      - postgresql
+      - redis
+      - hazelcast
