@@ -1,8 +1,6 @@
-package com.colak.config;
+package com.colak.redis.config;
 
-import com.colak.controller.jpa.HazelcastEmployeeController;
 import com.colak.controller.jpa.RedisEmployeeController;
-import com.hazelcast.spring.cache.HazelcastCacheManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -13,11 +11,10 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class CacheMetricsConfig {
+public class RedisCacheMetricsConfig {
 
     private final RedisCacheManager redisCacheManager;
 
-    private final HazelcastCacheManager hazelcastCacheManager;
 
     private final CacheMetricsRegistrar cacheMetricsRegistrar;
 
@@ -26,8 +23,5 @@ public class CacheMetricsConfig {
     public void addCachesMetrics() {
         Cache redisCache = redisCacheManager.getCache(RedisEmployeeController.CACHE_NAME);
         cacheMetricsRegistrar.bindCacheToRegistry(redisCache);
-
-        Cache hazelcastCache = hazelcastCacheManager.getCache(HazelcastEmployeeController.CACHE_NAME);
-        cacheMetricsRegistrar.bindCacheToRegistry(hazelcastCache);
     }
 }
